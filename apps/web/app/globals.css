@@ -7,9 +7,21 @@
   --line: #e7e5e4;
   --accent: #0f172a;
   --brand-ai: #38bdf8;
-  --critical: #b91c1c;
-  --critical-bg: rgba(185, 28, 28, 0.10);
-  --safe: #047857;
+
+  /* severity scale */
+  --sev-safe: #047857;
+  --sev-safe-bg: rgba(4, 120, 87, 0.10);
+  --sev-review: #b45309;
+  --sev-review-bg: rgba(180, 83, 9, 0.10);
+  --sev-sensitive: #c2410c;
+  --sev-sensitive-bg: rgba(194, 65, 12, 0.12);
+  --sev-critical: #b91c1c;
+  --sev-critical-bg: rgba(185, 28, 28, 0.12);
+
+  /* legacy aliases (still used a few places) */
+  --critical: var(--sev-critical);
+  --critical-bg: var(--sev-critical-bg);
+  --safe: var(--sev-safe);
 }
 
 html,
@@ -27,16 +39,17 @@ button {
   cursor: pointer;
 }
 
-mark.crit {
-  background: var(--critical-bg);
-  color: var(--critical);
+mark.sev {
   border-radius: 3px;
   padding: 0 3px;
   cursor: help;
-  border-bottom: 1px dashed var(--critical);
+  border-bottom: 1px dashed currentColor;
 }
+mark.sev-review    { background: var(--sev-review-bg);    color: var(--sev-review); }
+mark.sev-sensitive { background: var(--sev-sensitive-bg); color: var(--sev-sensitive); }
+mark.sev-critical  { background: var(--sev-critical-bg);  color: var(--sev-critical); }
 
-mark.crit.excluded {
+mark.sev.excluded {
   background: transparent;
   color: var(--foreground);
   border-bottom: 1px dotted var(--muted);

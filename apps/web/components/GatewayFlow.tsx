@@ -8,6 +8,7 @@ import {
   RecipientContext,
   ReplacementMode,
   RewriteResponse,
+  Severity,
   Span,
 } from "@/lib/types";
 import { HighlightedText } from "./HighlightedText";
@@ -254,9 +255,7 @@ export function GatewayFlow({
         <section className="rounded-xl border bg-white">
           <div className="flex items-center justify-between border-b px-5 py-3 text-sm">
             <div className="flex items-center gap-3">
-              <Pill tone={overall === "CRITICAL" ? "critical" : "safe"}>
-                {overall}
-              </Pill>
+              <SeverityPill severity={overall ?? "SAFE"} />
               <span className="text-[var(--muted)]">
                 {classify.spans.length} item
                 {classify.spans.length === 1 ? "" : "s"} flagged
@@ -361,11 +360,15 @@ export function GatewayFlow({
                         onChange={() => toggle(i)}
                         className="mt-1"
                       />
-                      <div>
-                        <span className="rounded bg-[var(--line)]/50 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-[var(--muted)]">
-                          {CATEGORY_LABEL[s.category]}
-                        </span>{" "}
-                        <span className="truncate">{s.text}</span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <SeverityDot severity={s.severity} />
+                          <span className="rounded bg-[var(--line)]/50 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-[var(--muted)]">
+                            {CATEGORY_LABEL[s.category]}
+                            {s.subcategory ? ` · ${s.subcategory}` : ""}
+                          </span>
+                          <span className="truncate">{s.text}</span>
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -436,22 +439,33 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function Pill({
-  tone,
-  children,
-}: {
-  tone: "safe" | "critical";
-  children: React.ReactNode;
-}) {
-  const cls =
-    tone === "critical"
-      ? "bg-[var(--critical-bg)] text-[var(--critical)]"
-      : "bg-emerald-100 text-emerald-800";
+function SeverityPill({ severity }: { severity: Severity }) {
+  const tones: Record<Severity, string> = {
+    SAFE: "bg-[var(--sev-safe-bg)] text-[var(--sev-safe)]",
+    REVIEW: "bg-[var(--sev-review-bg)] text-[var(--sev-review)]",
+    SENSITIVE: "bg-[var(--sev-sensitive-bg)] text-[var(--sev-sensitive)]",
+    CRITICAL: "bg-[var(--sev-critical-bg)] text-[var(--sev-critical)]",
+  };
   return (
     <span
-      className={`rounded px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider ${cls}`}
+      className={`rounded px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider ${tones[severity]}`}
     >
-      {children}
+      {severity}
     </span>
+  );
+}
+
+function SeverityDot({ severity }: { severity: Severity }) {
+  const tones: Record<Severity, string> = {
+    SAFE: "bg-[var(--sev-safe)]",
+    REVIEW: "bg-[var(--sev-review)]",
+    SENSITIVE: "bg-[var(--sev-sensitive)]",
+    CRITICAL: "bg-[var(--sev-critical)]",
+  };
+  return (
+    <span
+      className={`inline-block h-1.5 w-1.5 rounded-full ${tones[severity]}`}
+      title={severity}
+    />
   );
 }

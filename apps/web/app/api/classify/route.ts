@@ -10,6 +10,6 @@ export async function POST(req: Request) {
   };
   const text = (body.text ?? "").toString();
   if (!text.trim()) return Response.json({ spans: [], overall: "SAFE" });
-  const spans = await classify(text, body.model ?? "openai");
-  return Response.json({ spans, overall: spans.length ? "CRITICAL" : "SAFE" });
+  const result = await classify(text, body.model ?? "openai");
+  return Response.json(result);
 }

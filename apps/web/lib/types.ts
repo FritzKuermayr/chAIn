@@ -1,16 +1,27 @@
 export type Category =
-  | "name"
-  | "address"
-  | "tax_id"
-  | "account"
-  | "password"
-  | "api_key"
-  | "medical"
-  | "identifier"
-  | "contact"
+  | "identity"
+  | "contact_location"
+  | "financial"
+  | "auth_secret"
+  | "health"
+  | "sensitive_trait"
+  | "private_record"
+  | "household"
+  | "digital_identifier"
+  | "behavioral"
+  | "inferred"
+  | "communication_content"
   | "other";
 
-export type Severity = "SAFE" | "CRITICAL";
+export type Severity = "SAFE" | "REVIEW" | "SENSITIVE" | "CRITICAL";
+
+export type RecommendedAction =
+  | "allow"
+  | "allow_with_redaction"
+  | "warn"
+  | "block"
+  | "manual_review";
+
 export type ReplacementMode = "placeholder" | "dummy";
 export type ModelChoice = "openai" | "kimi";
 export type RecipientContext =
@@ -28,7 +39,10 @@ export interface Span {
   end: number;
   text: string;
   category: Category;
+  subcategory?: string | null;
   severity: Severity;
+  recommended_action?: RecommendedAction | null;
+  confidence?: number | null;
   note?: string | null;
 }
 
@@ -84,14 +98,25 @@ export interface HashtagCount {
 }
 
 export const CATEGORY_LABEL: Record<Category, string> = {
-  name: "Name",
-  address: "Address",
-  tax_id: "Tax ID",
-  account: "Account",
-  password: "Password",
-  api_key: "API key",
-  medical: "Medical",
-  identifier: "Identifier",
-  contact: "Contact",
+  identity: "Identity",
+  contact_location: "Contact / Location",
+  financial: "Financial",
+  auth_secret: "Auth / Secret",
+  health: "Health",
+  sensitive_trait: "Sensitive trait",
+  private_record: "Private record",
+  household: "Household",
+  digital_identifier: "Digital ID",
+  behavioral: "Behavioral",
+  inferred: "Inferred",
+  communication_content: "Communication",
   other: "Other",
+};
+
+// Severity rank — used to compute the highest severity across spans.
+export const SEVERITY_RANK: Record<Severity, number> = {
+  SAFE: 0,
+  REVIEW: 1,
+  SENSITIVE: 2,
+  CRITICAL: 3,
 };
