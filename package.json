@@ -1,0 +1,12 @@
+{
+  "name": "chain",
+  "private": true,
+  "version": "0.1.0",
+  "description": "chAIn — privacy-preserving communication & knowledge network",
+  "scripts": {
+    "dev": "cd apps/web && npm run dev",
+    "build": "cd apps/web && npm install && npm run build",
+    "start": "cd apps/web && npm run start",
+    "install:web": "cd apps/web && npm install"
+  }
+}

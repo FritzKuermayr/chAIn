@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf9;
+  --foreground: #1c1917;
+  --muted: #78716c;
+  --line: #e7e5e4;
+  --accent: #0f172a;
+  --critical: #b91c1c;
+  --critical-bg: rgba(185, 28, 28, 0.10);
+  --safe: #047857;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "ss01", "cv11";
+}
+
+* {
+  border-color: var(--line);
+}
+
+button {
+  cursor: pointer;
+}
+
+mark.crit {
+  background: var(--critical-bg);
+  color: var(--critical);
+  border-radius: 3px;
+  padding: 0 3px;
+  cursor: help;
+  border-bottom: 1px dashed var(--critical);
+}
+
+mark.crit.excluded {
+  background: transparent;
+  color: var(--foreground);
+  border-bottom: 1px dotted var(--muted);
+}
+
+textarea, input, select {
+  outline: none;
+}
+
+textarea:focus, input:focus, select:focus {
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.10);
+}
+
+::selection {
+  background: rgba(15, 23, 42, 0.12);
+}
