@@ -1,0 +1,81 @@
+Subject: Cross-border restructuring — ATAD-CFC + §13a interaction for our client Müller Logistik GmbH (succession case)
+From: Anna Weber <a.weber@steuerpartners-mannheim.de>
+To: Dr. Thomas Lindemann <t.lindemann@kpmg-frankfurt.de>
+Cc: Maria Cordella <m.cordella@mazars.de>
+Date: 2026-04-23 17:42
+
+Dear Thomas,
+
+following up on our call yesterday — I'm forwarding the situation around our client Müller Logistik GmbH (HRB 47291, Mannheim, USt-ID DE293847562) and would appreciate your read before we finalize a direction. I've copied Maria Cordella, the audit partner-in-charge at Mazars, since the CFC issue lands on her desk regardless of which way we go.
+
+Background
+
+The client operates a freight-forwarding business with EUR 47.3M turnover (FY2025), 142 FTEs across three locations: Mannheim (HQ, 91 FTEs), Düsseldorf (operations, 45 FTEs), and a small operations office in Rotterdam (6 FTEs). Sole shareholder is Mr. Klaus Müller (DOB 1962-11-04, residing at Buchenstr. 18, 68259 Mannheim, German tax ID 48 192 837 691, married, joint assessment with Mrs. Renate Müller, tax ID 48 192 837 692). Mr. Müller is now 63. He wants to bring his daughter Sarah Müller-Schmidt (DOB 1989-03-22, currently CFO at the GmbH since 2021, residing at Mollstr. 49, 68165 Mannheim, tax ID 18 472 938 273) into ownership and ultimately transfer 60% over the next four years.
+
+The complication is the Rotterdam entity. We set it up in early 2021 as Müller Logistics B.V. (KVK 81293847, statutory seat Westblaak 180, 3012 KM Rotterdam, BTW-nummer NL862947382B01) primarily to handle EU customs-broker work for a single anchor client — a German chemical manufacturer (Berghaus Chemie AG, HRB 38472, Ludwigshafen) which requires Dutch-resident declarations for ~85% of their EU-bound shipments. The B.V. is held 100% by the German GmbH. Its 2025 numbers: EUR 8.4M revenue (EUR 7.6M from Berghaus, EUR 0.8M from three other customers), EUR 1.1M net profit, 6 FTEs (managing director Mr. Pieter van der Meer, salary EUR 142,000 + company car).
+
+Three issues we're trying to resolve, all interlocking.
+
+1) CFC / Hinzurechnungsbesteuerung exposure
+
+With the post-2022 ATAD-implementing rules (§§7-14 AStG, current version), we have substantial uncertainty about whether the B.V.'s passive-income classification triggers CFC inclusion at the GmbH level. The local NL tax counsel (Mr. Joris Bakker at Loyens & Loeff, j.bakker@loyensloeff.com) claims the B.V.'s "low-tax" rate is above the 25% threshold and argues no CFC. Our reading is more cautious. The NL corporate tax has two-tier structure with 19% on the first EUR 200k and 25.8% above. After deducting the actually applicable innovation-box-equivalent treatment (which doesn't apply here, the B.V. has no qualifying IP), and including the relevant base allowance, we calculate the effective NL rate for the B.V. at ~24.6% in FY2025 — three-tenths of a percent below the AStG threshold.
+
+If we're right, that's a Hinzurechnung at the German shareholder level (the GmbH) for the proportion of the B.V.'s income classified as "passive." The 90% intra-group billing pattern makes that classification arguable both ways. Our position: customs-broker services billed to a related party are still active business income because the underlying activity is operational service delivery, not passive licensing/IP/financing. NL counsel agrees. The risk is that the BfF (Bundeszentralamt für Steuern) takes a different view in a Betriebsprüfung in 2027 or 2028, and by that point we've already executed the gift transfers and unwinding the position retroactively is painful.
+
+Maria's audit team flagged this in their preliminary memo last month (Mazars memo MZ-2026-0294, dated 2026-03-22). They want us to either (a) get a binding ruling from the FA Mannheim-Neckarstadt before signing FY2025, or (b) accept a qualified opinion. Neither is great. (a) is slow — the last similar Verbindliche Auskunft we obtained from FA Mannheim-Neckarstadt took 14 months, file ref FA-MA-N-VBA-2024-0184. (b) hurts the client materially when they refinance their term loan with Commerzbank — covenant in the existing loan agreement (Commerzbank Frankfurt, account DE89 5004 0000 0123 4567 00, loan ref CB-CRE-2024-MUE-0094, principal EUR 7.4M, balloon 2027-09) requires "uneingeschränkter Bestätigungsvermerk" — a qualified opinion technically triggers default, even if Commerzbank in practice usually waives it.
+
+2) The succession structure and the Verschonung threshold
+
+Klaus wants to transfer 60% over four years using the favored §13a/13b ErbStG regime. The standard Verschonungsabschlag of 85% applies because the GmbH is below the EUR 26M threshold for the Großvermögen reduction. The catch: the Rotterdam B.V. is potentially Verwaltungsvermögen-relevant (it's a passive holding by some readings). And if its classification flips because of issue (1) above — i.e. if we treat the B.V. as a non-operating subsidiary for German tax purposes — we lose the Verschonung on roughly 18% of the gift base, which translates to a transfer tax of approximately EUR 720,000 that Sarah personally cannot fund without selling shares back to Klaus, defeating the whole point of the gift.
+
+Our calculation, FY2025 gift base scenario:
+- Total enterprise value (DCF, third-party indication from Hauck Aufhäuser dated 2026-02-08): EUR 18.4M
+- 60% gift base: EUR 11.04M
+- Standard Verschonung (85%): tax-free EUR 9.384M, taxable EUR 1.656M
+- ErbStG class 1 (parent-to-child) bracket on EUR 1.656M after EUR 400k personal allowance: EUR 188k
+- IF Rotterdam reclassifies as Verwaltungsvermögen: additional EUR 1.99M removed from Verschonung base, additional tax ~EUR 720k, total Schenkungsteuer ~EUR 908k
+
+3) Operational dependency on the Rotterdam entity
+
+We've considered three structural paths.
+
+Path A: Restructure the B.V. before the gift — collapse the Rotterdam entity into a German GmbH subsidiary with a Dutch branch instead. Operationally this is awkward: the chemical client (Berghaus Chemie AG) requires a Dutch-resident entity for the customs-broker license (DCBA license #NL-2018-3392, issued by Douane Nederland, valid until 2028-12-31, transferable only with significant administrative process). Loss of the license = loss of EUR 7.6M of the EUR 8.4M Rotterdam revenue, which destroys the operational logic of the entity entirely.
+
+Path B: Restructure the B.V. so the passive-income share drops below the threshold — would require redirecting the Berghaus intra-group billing through a real third-party arrangement (perhaps via an external customs broker partner contractually inserted in the chain, with a margin uplift). The TP people (currently BDO, last study BDO-TP-2024-09 from September 2024, file ref BDO-MUE-TP-09-2024) will want to model carefully and would likely require a Sicherheitsabschlag of 8-12% on the gross margin to produce a Betriebsprüfung-defensible structure. That still leaves the B.V. profitable and operational.
+
+Path C: Accept the CFC inclusion, lose part of the §13a Verschonung, but use the EUR 720k cash from the term-loan refinance proceeds (Commerzbank approved an extended facility up to EUR 12M last week, loan ref CB-CRE-2026-MUE-0294, drawdown available 2026-06-01) to fund the resulting transfer tax liability. This works mechanically but Klaus is reluctant — he sees it as overpaying the FA for a structure his accountant should have anticipated when it was set up in 2021.
+
+My questions for you
+
+1. ATAD-CFC threshold computation: have you handled an interaction recently where the effective NL rate was right at the 25% threshold? Specifically, does FA Mannheim accept the FY-by-FY rate computation, or do they insist on a five-year rolling average? Our position is FY-by-FY, supported by a 2024 BFH judgment (BFH I R 32/22, decision dated 2024-09-11, BStBl II 2025, 184), but I haven't seen it tested in a Betriebsprüfung locally. If FA takes the rolling average, the FY2021-FY2025 average pushes the B.V. to ~25.4%, just above threshold, and the whole CFC concern resolves in our favor.
+
+2. §13a interaction with active CFC: assuming we go Path B and successfully document the B.V. as active under both AStG passive-income rules AND the Verwaltungsvermögen test, do you see any second-order issue (especially around the 90%-Operativ-Test under §13b ErbStG) that would still strip the Verschonung? We've stress-tested the operating-company classification but haven't gotten an external read.
+
+3. Path B realism: from your TP work, what's a realistic Sicherheitsabschlag for the third-party arrangement, and how long does it typically take to document defensibly? Klaus signs a binding LOI with Sarah on May 30. We need the structure either resolved by then or explicitly carved out in the LOI as a condition subsequent. The latter is less elegant but more honest.
+
+4. Tactical: should we go for the binding ruling on the CFC question even with the 14-month lead time, on the theory that we can still execute the gift in 2026 with a contingent provision and clean it up retroactively? Or is the Verbindliche Auskunft route a trap because the FA might come back with a position that locks us out of Path B?
+
+I can send the underlying numbers (Excel pack with the FY2021-2025 detail, ~38MB) by encrypted file transfer once you say yes to a deeper look.
+
+Time pressure summary:
+- LOI signing between Klaus and Sarah: May 30
+- FY2025 audit signoff (Mazars): June 15
+- Commerzbank refinance documentation due: July 1
+- First gift tranche execution target: October 1, 2026
+- We need a direction from you by next Tuesday (April 28).
+
+I'm reachable at +49 621 555 8294 (direct) or +49 162 4827 392 (mobile). Maria is on +49 69 967 7384 if you'd rather start with the audit angle.
+
+Best,
+Anna
+
+—
+Anna Weber, M.A. (Tax)
+Steuerpartners Mannheim PartG mbB
+Steuerberatung · Wirtschaftsprüfung
+N7 13–15, 68161 Mannheim
+Direct: +49 621 555 8294
+Mobile: +49 162 4827 392
+a.weber@steuerpartners-mannheim.de
+USt-IdNr. DE 246 879 312
+Berufshaftpflicht: AXA Versicherung 1234567/89

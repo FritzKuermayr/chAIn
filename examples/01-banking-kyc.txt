@@ -1,0 +1,38 @@
+Subject: Re: Onboarding Hartmann Industries Holding — beneficial owner clarification needed
+From: Lukas Reinhardt <l.reinhardt@deutschebank.de>
+To: Sarah Whitfield <s.whitfield@kyc-bridge.com>
+Cc: Compliance Team <emea-compliance@deutschebank.de>
+Date: 2026-04-22 09:14
+
+Sarah,
+
+following up on the Hartmann Industries Holding GmbH onboarding (HRB 184273, Frankfurt). We're stuck on the UBO chain and need your read before Thursday's IC.
+
+Account holder: Hartmann Industries Holding GmbH, Mainzer Landstraße 47, 60329 Frankfurt am Main, USt-ID DE294857361.
+Sole director: Mr. Andreas Hartmann (DOB 1971-06-12, residing at Schaumainkai 71, 60596 Frankfurt, German tax ID 19 472 938 261, passport DE-X4729384).
+
+The structure they declared:
+- Hartmann Industries Holding GmbH (Frankfurt) — held 100% by
+- Hartmann Family Trust (Liechtenstein, established 2018, trustee: LGT Trust AG, Vaduz, file ref. LGT-T-2018-0428) — beneficiaries:
+  - Andreas Hartmann (50%, settlor)
+  - Lara Hartmann (DOB 2003-09-19, daughter, residing at Schaumainkai 71, 60596 Frankfurt) — 25%
+  - Maximilian Hartmann (DOB 2007-04-02, son, same address) — 25%
+
+The thing that flagged: cross-checking the trust deed against our PEP screening (Refinitiv ID 1004-29384), the trustee LGT Trust AG was the same trustee on a 2021 case we declined (case ref CCM-2021-0894, Schmidt-Glasenapp construct) where there was downstream contact with a sanctioned PEP via a Cypriot intermediate. No direct overlap here, but the pattern is similar enough that our second-line wants more comfort.
+
+Two specific asks:
+1. Can you run a fresh full-spectrum search on Andreas Hartmann + the trust + LGT Trust AG against your enhanced lists, especially the post-2024 EU sanctions deltas? Our internal search is from 2026-02 and the IC will ask.
+2. The opening deposit is EUR 6.4M wired from account NL18 RABO 0345 0298 11 (Rabobank, account holder declared as Hartmann Industries Holding GmbH itself — unusual for an opening transfer). I'd like an outside read on whether that warrants additional source-of-funds documentation before we open, or if "self-funding from operating account" is enough comfort given the deposit size.
+
+If you say go, we'll open with a transaction monitoring profile pegged at "complex corporate, EUR 5M+/month expected throughput, EU and CH only" — but we can flip that if your read is different.
+
+Time pressure: client wants to use the account for an acquisition closing on May 15. The seller's lawyers are already asking us to confirm the receiving account.
+
+Thanks,
+Lukas
+
+—
+Lukas Reinhardt
+Senior KYC Analyst, Corporate Banking EMEA
+Deutsche Bank AG | Taunusanlage 12, 60325 Frankfurt
++49 69 910 38274 | l.reinhardt@deutschebank.de

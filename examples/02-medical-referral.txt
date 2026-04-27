@@ -1,0 +1,39 @@
+Subject: Referral / 2nd opinion — patient with treatment-refractory hypertension + suspected secondary cause
+From: Dr. Helene Vogel <h.vogel@klinik-mannheim.de>
+To: Prof. Dr. Martin Schreiner <m.schreiner@uniklinik-heidelberg.de>
+Date: 2026-04-23 16:42
+
+Dear Prof. Schreiner,
+
+I'd like your read on a patient I've been managing for the past 14 months. The case is pulling me toward a secondary cause but I haven't been able to nail it down and the patient is becoming uncooperative with further workup.
+
+Patient: Mr. Johannes Bauer, DOB 1968-03-04, AOK insured (member ID A294857361, Versicherungsnummer A294857361K001), residing at Friedrichsplatz 14, 68165 Mannheim. Telephone +49 621 8472938. He is aware I am writing to you.
+
+Brief history:
+- Hypertension diagnosed 2019-07, initially well-controlled on ramipril 5mg.
+- Progressive escalation 2024-11 onwards. Currently on ramipril 10mg + amlodipine 10mg + bisoprolol 5mg + indapamide 1.5mg + spironolactone 25mg (added 2026-01).
+- Despite five-drug combination: home BP averaging 162/104, office BP 178/112 last visit (2026-04-09).
+- HbA1c 5.7%, BMI 27.2, normal renal function (eGFR 84), no proteinuria. Lipid panel borderline (LDL 142). Non-smoker, moderate alcohol (5-7 units/week per his report).
+- Sleep study negative (AHI 4.2, 2025-08, Schlaflabor Mannheim, file SL-2025-1428).
+- Plasma aldosterone:renin ratio mildly elevated (ARR 28, repeat 31), but the salt-loading suppression test came back equivocal (aldosterone 9.4 ng/dL post-load, threshold per local lab 10).
+- 24h urine metanephrines: normetanephrine slightly above range (650 µg/24h, ULN 600), metanephrine within range.
+- MRI adrenals 2026-02 (Radiologie Quadrate, accession R-2026-04829): "no discrete lesion identified, mild bilateral adrenal fullness, non-specific."
+
+The picture I keep coming back to: borderline-positive in three different secondary-screen modalities, none diagnostic. Adrenal venous sampling would be the obvious next step but he refused it twice ("zu invasiv"). Patient's wife (Mrs. Marlene Bauer, +49 162 4827392, file note from her separate consultation 2026-03-14: she has POTS and is being managed at the Innere Medizin outpatient at our hospital, file IM-OPD-2026-0294) is pushing him toward a full second opinion before agreeing to anything more invasive.
+
+What I'd value from you:
+1. Would you in your population reflexly do a renal artery imaging study (CTA vs MRA) given the ARR equivocal + slightly elevated normetanephrine + non-specific MRI? My gut says yes but I'm cautious about contrast given his eGFR drift over the past year.
+2. If we get him to an endocrine clinic, would your group consider AVS even with the equivocal salt-loading test, or do you require a clearly positive ARR confirmation first?
+3. Realistically, what's the wait-time at your outpatient if I refer formally? He'll lose patience past ~6 weeks.
+
+I'm attaching the lab summary and the MRI report as encrypted PDFs (separate mail, password by SMS to the number you have on file for me).
+
+Best,
+Helene
+
+—
+Dr. med. Helene Vogel
+Innere Medizin / Hypertonie-Sprechstunde
+Universitätsklinikum Mannheim
+Theodor-Kutzer-Ufer 1-3, 68167 Mannheim
++49 621 383 2947 | h.vogel@klinik-mannheim.de

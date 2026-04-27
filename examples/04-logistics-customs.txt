@@ -1,0 +1,47 @@
+Subject: URGENT — 3 reefer containers held at Rotterdam, HS-code dispute, perishable
+From: Tomás Pereira <t.pereira@nordic-freight.eu>
+To: Hans Albers <h.albers@duane-advies.nl>
+Date: 2026-04-26 06:48
+
+Hans,
+
+three of our containers were pulled at Rotterdam yesterday evening (Maasvlakte II, terminal RWG, gate-out scheduled 2026-04-26 04:00, didn't happen). I need fast advice — these are reefer containers carrying salmon, expiry sensitive.
+
+Shipment details:
+- Bill of lading: MSCU-2904857-RTM
+- Containers: MSCU 7384927, MSCU 7384928, MSCU 7384929 (40' reefer, set point -1.5°C)
+- Vessel: MSC Esmeralda, voyage 2026-09E, arrived 2026-04-25 14:12
+- Importer of record: Nordic Seafood Distribution B.V. (KVK 84629384, statutory seat Coolsingel 120, 3011 AG Rotterdam)
+- Consignee for onward delivery: Hartmann Fischhandel GmbH (HRB 39472, Hamburg), tax ID 19 837 462 091
+- Goods: 60 metric tons farmed Atlantic salmon (Salmo salar), processed (gutted, head-on, ice-glazed)
+- Origin: Norway, exporter SalmonCo AS (org.nr. NO 982 947 382 MVA), EU import certificate NO-EU-IMP-2026-04829
+- Declared value: EUR 487,392 (commercial invoice INV-2026-2847, dated 2026-04-22)
+- Declared HS code: 0303.13.00 (frozen Atlantic salmon)
+
+The customs officer on duty (Customs Officer J. van der Meer, badge NL-CUS-29384, file ref CRT-2026-RTM-04827) is reclassifying as 0304.81.00 (frozen fillets) on the grounds that the gutting + head-on + glazing process makes it "fillet-equivalent" under the 2025 BTI guidance shift. The duty delta is significant: 0303.13 attracts 2% under the EU-Norway preferential, 0304.81 attracts 13% under WTO MFN because the EFTA preferential carve-out for processed product expired 2024-12-31 and Norway hasn't renegotiated.
+
+Numbers:
+- Duty under our declaration (0303.13, EFTA preferential): EUR 9,748
+- Duty under their reclassification (0304.81, MFN 13%): EUR 63,361
+- Delta: EUR 53,613 plus the demurrage clock now running at the terminal (EUR 240/day per container × 3 = EUR 720/day) plus reefer power (EUR 95/day per container × 3)
+- And the bigger problem: the salmon's quality clock. Set point -1.5°C, "fresh" classification under EU food law requires uninterrupted cold chain at ≤2°C max. Each day of port hold doesn't ruin the goods but does eat into Hartmann's downstream shelf-life with retail (Edeka & Rewe, contracts negotiated on 12-day shelf at delivery).
+
+What I want to know:
+1. Pay-under-reservation vs formal contest — fastest path? Last time we paid-under-reservation a similar reclassification was released within 8 hours but the contest then took 7 months to resolve. Worth it on a EUR 53k delta?
+2. The 2025 BTI guidance shift the officer is citing — is that actually being applied uniformly across NL ports, or is this a Rotterdam-specific reading? I had a near-identical container clear at Antwerp three weeks ago under 0303.13 with no questions.
+3. The exporter (SalmonCo AS) is willing to amend the commercial invoice description if it would help — what wording would minimize the reclassification risk on the next 11 containers we have arriving over the next 14 days?
+4. Worst case: if we lose the contest and 0304.81 stands, can the delta be passed to the Norwegian exporter under the terms of our framework agreement (Incoterms DDP Hamburg)? My gut is no because we're the IoR, but I want your take.
+
+Bank details for any duty payment under reservation, our account: ING Bank, IBAN NL18 INGB 0294 8372 91, account holder Nordic Seafood Distribution B.V.
+
+Reachable on +31 6 384 92847 all day. Mobile is on me.
+
+Cheers,
+Tomás
+
+—
+Tomás Pereira
+Head of Customs Operations
+Nordic Freight Services Europe N.V.
+Coolsingel 120, 3011 AG Rotterdam
++31 6 384 92847 | t.pereira@nordic-freight.eu

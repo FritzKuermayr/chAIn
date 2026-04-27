@@ -1,0 +1,37 @@
+Subject: Wortmann ./. Eberhardt-Bau — privilege log + production deadline
+From: Dr. Stefan Krüger <s.krueger@goermann-partners.de>
+To: Marcel Hoffmann <m.hoffmann@gleiss-lutz.com>
+Date: 2026-04-25 11:08
+
+Marcel,
+
+re Wortmann ./. Eberhardt-Bau Holding GmbH (LG Frankfurt 2-08 O 412/24 — fixed-price contract dispute, claim value EUR 14.7M). Production deadline is May 12 and we still have an open dispute on roughly 380 documents we want to assert privilege over.
+
+Quick recap of the relevant cast for what's below:
+- Our client: Wortmann Bauträger GmbH (HRB 92847, Frankfurt), MD Mr. Reinhard Wortmann (DOB 1958-04-22, residing at Liebigstraße 12, 60323 Frankfurt, tax ID 18 294 736 502).
+- Counterparty: Eberhardt-Bau Holding GmbH, MD Mr. Klaus-Dieter Eberhardt.
+- Project at issue: Wohnpark Riedberg-Süd, Bauvorhaben WP-RBS-2022, contract dated 2022-09-14, supplemental agreements 2023-03-08 and 2024-01-22.
+
+The privilege issue:
+We are asserting privilege over communications between Mr. Wortmann and outside counsel from your prior firm (Bittermann Rechtsanwälte) covering the period 2022-08 through 2023-04 — that's about 280 of the disputed docs. Your client argues that because the firm's senior associate (Frau Dr. Christina Adler — at the time at Bittermann, now in-house GC at Eberhardt-Bau) was simultaneously on both sides during 2023-Q1, the privilege has been waived as to all communications she touched, even where she was acting solely for our client.
+
+Our position is the obvious one: privilege survives an attorney's later move to the opposing party for communications dated before the move, full stop. We have her personnel file from Bittermann (Bittermann internal memo 2023-04-18, file BIT-HR-2023-014) showing the official transition date as 2023-05-15, with no involvement in the Eberhardt matter prior to that. Their counter is that there's a Slack message from her dated 2023-03-22 (Slack workspace eberhardt-bau.slack.com, channel #legal, message ID 1648392847.001) responding to a question about an Eberhardt-side contract draft — which they claim shows she was "effectively engaged" before the formal start.
+
+The remaining ~100 disputed docs are mixed advice/business communications between Mr. Wortmann and his then-CFO Frau Andrea Lehmann (DOB 1972-11-09, currently still employed, in cc on most outside-counsel mails). Standard mixed-purpose problem. We're proposing to redact the advice portions and produce the business portions with a topic-level index — that's the approach the Frankfurt LG accepted in the Schäfer ./. Hofmann decision (LG Frankfurt 2-22 O 192/22, judgment 2024-05-09).
+
+What I'd value:
+1. Your read on the "effectively engaged" argument — have you seen this fly anywhere in the past two years? My recollection is no, but I want a sanity check before we file the response.
+2. Any pushback on the Lehmann redact-and-produce approach from your recent matters? In particular, are you aware of any Frankfurt LG bench preferring full document production with a hard log over the topic-index approach we used last year?
+3. Procedural: your view on whether to push for an in-camera review of the contested 380 if they don't withdraw. That gets us a ruling but extends the timeline by 6-8 weeks, which our client wants to avoid because of his refinancing timeline (Commerzbank, term-loan extension under negotiation, currently EUR 22M outstanding, IBAN DE89 5004 0000 0123 4567 00).
+
+Happy to call this afternoon if easier — I'm at +49 69 9716 4827 most of the day.
+
+Best,
+Stefan
+
+—
+Dr. Stefan Krüger, LL.M. (NYU)
+Partner, Dispute Resolution
+Goermann & Partners
+Bockenheimer Anlage 46, 60322 Frankfurt am Main
++49 69 9716 4827 | s.krueger@goermann-partners.de
