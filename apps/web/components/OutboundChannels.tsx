@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import { EmailComposeModal } from "./EmailComposeModal";
 
 type Toast = { kind: "ok" | "warn"; msg: string } | null;
 
-const URL_LIMIT = 1500; // browsers happily accept more, but some shells truncate
+const URL_LIMIT = 1500;
 
 async function copy(text: string): Promise<boolean> {
   try {
@@ -22,7 +23,7 @@ function openTab(url: string) {
 async function downloadPptx(text: string, title: string) {
   const PptxGenJS = (await import("pptxgenjs")).default;
   const pptx = new PptxGenJS();
-  pptx.layout = "LAYOUT_WIDE"; // 13.33 × 7.5"
+  pptx.layout = "LAYOUT_WIDE";
   const slide = pptx.addSlide();
   slide.background = { color: "FAFAF9" };
   slide.addText(title, {
@@ -62,6 +63,7 @@ async function downloadPptx(text: string, title: string) {
 export function OutboundChannels({ text }: { text: string }) {
   const [toast, setToast] = useState<Toast>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [emailOpen, setEmailOpen] = useState(false);
 
   function flash(t: Toast, ms = 2400) {
     setToast(t);
@@ -103,38 +105,47 @@ export function OutboundChannels({ text }: { text: string }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <Btn onClick={copyOnly}>Copy</Btn>
-      <Btn
-        onClick={() =>
-          openIn("ChatGPT", (q) => `https://chatgpt.com/?q=${encodeURIComponent(q)}`)
-        }
-      >
-        Open in ChatGPT
-      </Btn>
-      <Btn
-        onClick={() =>
-          openIn("Claude", (q) => `https://claude.ai/new?q=${encodeURIComponent(q)}`)
-        }
-      >
-        Open in Claude
-      </Btn>
-      <Btn onClick={pptx} disabled={busy === "pptx"}>
-        {busy === "pptx" ? "Building…" : "Download as .pptx"}
-      </Btn>
-
-      {toast && (
-        <span
-          className={`ml-1 rounded px-2 py-0.5 text-[11px] ${
-            toast.kind === "ok"
-              ? "bg-[var(--sev-safe-bg)] text-[var(--sev-safe)]"
-              : "bg-[var(--sev-review-bg)] text-[var(--sev-review)]"
-          }`}
+    <>
+      <div className="flex flex-wrap items-center gap-2">
+        <Btn onClick={copyOnly}>Copy</Btn>
+        <Btn onClick={() => setEmailOpen(true)}>Send via email</Btn>
+        <Btn
+          onClick={() =>
+            openIn("ChatGPT", (q) => `https://chatgpt.com/?q=${encodeURIComponent(q)}`)
+          }
         >
-          {toast.msg}
-        </span>
-      )}
-    </div>
+          Open in ChatGPT
+        </Btn>
+        <Btn
+          onClick={() =>
+            openIn("Claude", (q) => `https://claude.ai/new?q=${encodeURIComponent(q)}`)
+          }
+        >
+          Open in Claude
+        </Btn>
+        <Btn onClick={pptx} disabled={busy === "pptx"}>
+          {busy === "pptx" ? "Building…" : "Download .pptx"}
+        </Btn>
+
+        {toast && (
+          <span
+            className={`ml-1 rounded px-2 py-0.5 text-[11px] ${
+              toast.kind === "ok"
+                ? "bg-[var(--sev-safe-bg)] text-[var(--sev-safe)]"
+                : "bg-[var(--sev-review-bg)] text-[var(--sev-review)]"
+            }`}
+          >
+            {toast.msg}
+          </span>
+        )}
+      </div>
+
+      <EmailComposeModal
+        open={emailOpen}
+        onClose={() => setEmailOpen(false)}
+        initialBody={text}
+      />
+    </>
   );
 }
 
@@ -151,7 +162,7 @@ function Btn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="rounded border px-3 py-1 text-xs hover:bg-[var(--line)]/40 disabled:opacity-50"
+      className="rounded border px-3 py-1.5 text-xs hover:bg-[var(--line)]/40 disabled:opacity-50"
     >
       {children}
     </button>

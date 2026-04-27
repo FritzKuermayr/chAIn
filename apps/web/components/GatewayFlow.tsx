@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import {
   CATEGORY_LABEL,
   ClassifyResponse,
   ModelChoice,
-  RecipientContext,
   ReplacementMode,
   RewriteResponse,
   Severity,
@@ -21,24 +20,16 @@ export type GatewayResult = {
   approved: boolean;
 };
 
-const RECIPIENTS: RecipientContext[] = [
-  "Tax Authority",
-  "Bank",
-  "Client",
-  "Agent Network",
-  "Public Sector",
-  "Other",
-];
+const ANALYZE_DEBOUNCE_MS = 900;
+const ANALYZE_MIN_CHARS = 20;
 
 export function GatewayFlow({
   initialText = "",
-  showSendButton = true,
   onApprove,
   approveLabel = "Approve",
   compact = false,
 }: {
   initialText?: string;
-  showSendButton?: boolean;
   onApprove?: (r: GatewayResult) => void;
   approveLabel?: string;
   compact?: boolean;
@@ -47,16 +38,15 @@ export function GatewayFlow({
   const [editedRewrite, setEditedRewrite] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [model, setModel] = useState<ModelChoice>("openai");
-  const [recipient, setRecipient] = useState<RecipientContext>("Client");
   const [mode, setMode] = useState<ReplacementMode>("placeholder");
-  const [hil, setHil] = useState(true);
-  const [busy, setBusy] = useState<"idle" | "classify" | "rewrite" | "send">(
-    "idle",
-  );
+  const [busy, setBusy] = useState<"idle" | "classify" | "rewrite">("idle");
   const [classify, setClassify] = useState<ClassifyResponse | null>(null);
   const [excluded, setExcluded] = useState<Set<number>>(new Set());
   const [rewrite, setRewrite] = useState<RewriteResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const lastAnalyzedKey = useRef<string>("");
+  const inflight = useRef(0);
 
   function toggle(i: number) {
     setExcluded((s) => {
@@ -79,44 +69,57 @@ export function GatewayFlow({
     }
   }
 
-  async function runAnalyze(directSend = false) {
+  async function runAnalyze(currentText: string, currentModel: ModelChoice, currentMode: ReplacementMode) {
+    const myToken = ++inflight.current;
     setError(null);
-    setRewrite(null);
-    setEditedRewrite(null);
-    setIsEditing(false);
     setBusy("classify");
     try {
-      const c = await api.classify(text, model);
+      const c = await api.classify(currentText, currentModel);
+      if (myToken !== inflight.current) return;
       setClassify(c);
       setExcluded(new Set());
+      setEditedRewrite(null);
+      setIsEditing(false);
       setBusy("rewrite");
       const r = await api.rewrite({
-        text,
+        text: currentText,
         spans: c.spans,
         excluded: [],
-        mode,
-        recipient,
-        model,
+        mode: currentMode,
+        recipient: "Other",
+        model: currentModel,
       });
+      if (myToken !== inflight.current) return;
       setRewrite(r);
-      if (directSend) {
-        onApprove?.({
-          original: text,
-          rewritten: r.rewritten,
-          spans: c.spans,
-          excluded: [],
-          approved: true,
-        });
-      }
     } catch (e) {
+      if (myToken !== inflight.current) return;
       setError(String(e));
     } finally {
-      setBusy("idle");
+      if (myToken === inflight.current) setBusy("idle");
     }
   }
 
+  // Auto-analyze: debounced re-run whenever text, model, or mode changes.
+  useEffect(() => {
+    const trimmed = text.trim();
+    if (trimmed.length < ANALYZE_MIN_CHARS) {
+      setClassify(null);
+      setRewrite(null);
+      return;
+    }
+    const key = `${model}::${mode}::${trimmed}`;
+    if (key === lastAnalyzedKey.current) return;
+    const handle = setTimeout(() => {
+      lastAnalyzedKey.current = key;
+      runAnalyze(text, model, mode);
+    }, ANALYZE_DEBOUNCE_MS);
+    return () => clearTimeout(handle);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, model, mode]);
+
   async function rerunRewrite() {
     if (!classify) return;
+    const myToken = ++inflight.current;
     setBusy("rewrite");
     setError(null);
     try {
@@ -125,20 +128,22 @@ export function GatewayFlow({
         spans: classify.spans,
         excluded: [...excluded],
         mode,
-        recipient,
+        recipient: "Other",
         model,
       });
+      if (myToken !== inflight.current) return;
       setRewrite(r);
       setEditedRewrite(null);
       setIsEditing(false);
     } catch (e) {
+      if (myToken !== inflight.current) return;
       setError(String(e));
     } finally {
-      setBusy("idle");
+      if (myToken === inflight.current) setBusy("idle");
     }
   }
 
-  function approveAndSend() {
+  function approve() {
     if (!rewrite || !classify) return;
     onApprove?.({
       original: text,
@@ -171,19 +176,6 @@ export function GatewayFlow({
               <option value="kimi">Kimi K2.6 (Tinker)</option>
             </select>
           </Field>
-          <Field label="Recipient">
-            <select
-              value={recipient}
-              onChange={(e) => setRecipient(e.target.value as RecipientContext)}
-              className="rounded border px-2 py-1"
-            >
-              {RECIPIENTS.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
-          </Field>
           <Field label="Replace with">
             <div className="flex rounded border">
               <button
@@ -200,14 +192,16 @@ export function GatewayFlow({
               </button>
             </div>
           </Field>
-          <label className="ml-auto flex items-center gap-2 text-[var(--muted)]">
-            <input
-              type="checkbox"
-              checked={hil}
-              onChange={(e) => setHil(e.target.checked)}
-            />
-            Human in the loop
-          </label>
+          <div className="ml-auto flex items-center gap-2 text-[11px] text-[var(--muted)]">
+            <BusyDot state={busy} />
+            <span>
+              {busy === "classify"
+                ? "Classifying…"
+                : busy === "rewrite"
+                  ? "Rewriting…"
+                  : "Auto-analyze on change"}
+            </span>
+          </div>
         </div>
 
         <textarea
@@ -230,24 +224,18 @@ export function GatewayFlow({
               className="hidden"
             />
           </label>
-          <div className="flex-1" />
-          {showSendButton && (
+          {text.trim() && (
             <button
-              onClick={() => runAnalyze(!hil)}
-              disabled={!text.trim() || busy !== "idle"}
-              className="rounded border px-3 py-1.5 text-sm hover:bg-[var(--line)]/40 disabled:opacity-50"
-              title={hil ? "Analyze and review before sending" : "Analyze and send"}
+              onClick={() => {
+                setText("");
+                setClassify(null);
+                setRewrite(null);
+              }}
+              className="rounded border px-3 py-1.5 text-sm text-[var(--muted)] hover:bg-[var(--line)]/40"
             >
-              {hil ? "Send (with review)" : "Send now"}
+              Clear
             </button>
           )}
-          <button
-            onClick={() => runAnalyze(false)}
-            disabled={!text.trim() || busy !== "idle"}
-            className="rounded bg-[var(--accent)] px-4 py-1.5 text-sm text-white disabled:opacity-50"
-          >
-            {busy === "idle" ? "Analyze" : busy === "classify" ? "Classifying…" : "Rewriting…"}
-          </button>
         </div>
       </section>
 
@@ -264,7 +252,7 @@ export function GatewayFlow({
             <button
               onClick={rerunRewrite}
               disabled={busy !== "idle"}
-              className="rounded border px-3 py-1 text-sm hover:bg-[var(--line)]/40"
+              className="rounded border px-3 py-1 text-sm hover:bg-[var(--line)]/40 disabled:opacity-50"
             >
               Re-run rewrite
             </button>
@@ -398,27 +386,14 @@ export function GatewayFlow({
             </div>
           </div>
 
-          {hil && rewrite && onApprove && (
+          {rewrite && onApprove && (
             <div className="flex items-center justify-end gap-2 border-t bg-[var(--line)]/20 px-5 py-3">
               <span className="mr-auto text-xs text-[var(--muted)]">
                 Review before this leaves your perimeter.
               </span>
               <button
-                onClick={approveAndSend}
+                onClick={approve}
                 className="rounded bg-[var(--accent)] px-4 py-1.5 text-sm text-white"
-              >
-                {approveLabel}
-              </button>
-            </div>
-          )}
-          {!hil && rewrite && onApprove && (
-            <div className="flex items-center justify-end gap-2 border-t bg-[var(--line)]/20 px-5 py-3">
-              <span className="mr-auto text-xs text-[var(--muted)]">
-                Sent without human review.
-              </span>
-              <button
-                onClick={approveAndSend}
-                className="rounded border px-4 py-1.5 text-sm"
               >
                 {approveLabel}
               </button>
@@ -437,6 +412,14 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       {children}
     </label>
   );
+}
+
+function BusyDot({ state }: { state: "idle" | "classify" | "rewrite" }) {
+  const cls =
+    state === "idle"
+      ? "bg-[var(--muted)]/40"
+      : "animate-pulse bg-[var(--brand-ai)]";
+  return <span className={`inline-block h-2 w-2 rounded-full ${cls}`} />;
 }
 
 function SeverityPill({ severity }: { severity: Severity }) {

@@ -119,7 +119,6 @@ export function NewPostModal({
         </div>
 
         <GatewayFlow
-          showSendButton={false}
           approveLabel={busy ? "Publishing…" : "Approve & publish"}
           onApprove={(r) => publish(r.rewritten)}
           compact
