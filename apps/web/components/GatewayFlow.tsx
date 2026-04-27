@@ -44,6 +44,7 @@ export function GatewayFlow({
 }) {
   const [text, setText] = useState(initialText);
   const [editedRewrite, setEditedRewrite] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
   const [model, setModel] = useState<ModelChoice>("openai");
   const [recipient, setRecipient] = useState<RecipientContext>("Client");
   const [mode, setMode] = useState<ReplacementMode>("placeholder");
@@ -71,6 +72,7 @@ export function GatewayFlow({
       setClassify(null);
       setRewrite(null);
       setEditedRewrite(null);
+      setIsEditing(false);
     } catch (e) {
       setError(String(e));
     }
@@ -80,6 +82,7 @@ export function GatewayFlow({
     setError(null);
     setRewrite(null);
     setEditedRewrite(null);
+    setIsEditing(false);
     setBusy("classify");
     try {
       const c = await api.classify(text, model);
@@ -126,6 +129,7 @@ export function GatewayFlow({
       });
       setRewrite(r);
       setEditedRewrite(null);
+      setIsEditing(false);
     } catch (e) {
       setError(String(e));
     } finally {
@@ -281,32 +285,60 @@ export function GatewayFlow({
             </div>
             <div className="p-5">
               <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-widest text-[var(--muted)]">
-                <span>Rewritten</span>
+                <span className="flex items-center gap-2">
+                  Rewritten
+                  {rewrite && editedRewrite !== null && editedRewrite !== rewrite.rewritten && (
+                    <span className="rounded bg-[var(--brand-ai)]/15 px-1.5 py-0.5 text-[9px] tracking-normal text-[var(--brand-ai)]">
+                      edited
+                    </span>
+                  )}
+                </span>
                 {rewrite && (
-                  <button
-                    onClick={() =>
-                      setEditedRewrite(editedRewrite === null ? rewrite.rewritten : null)
-                    }
-                    className="rounded border px-2 py-0.5 text-[10px] tracking-normal"
-                  >
-                    {editedRewrite === null ? "Edit" : "Done"}
-                  </button>
+                  <div className="flex items-center gap-1">
+                    {editedRewrite !== null && editedRewrite !== rewrite.rewritten && (
+                      <button
+                        onClick={() => {
+                          setEditedRewrite(null);
+                          setIsEditing(false);
+                        }}
+                        className="rounded border px-2 py-0.5 text-[10px] tracking-normal"
+                        title="Discard manual edits and restore the model output"
+                      >
+                        Reset
+                      </button>
+                    )}
+                    <button
+                      onClick={() => {
+                        if (isEditing) {
+                          setIsEditing(false);
+                        } else {
+                          if (editedRewrite === null) {
+                            setEditedRewrite(rewrite.rewritten);
+                          }
+                          setIsEditing(true);
+                        }
+                      }}
+                      className="rounded border px-2 py-0.5 text-[10px] tracking-normal"
+                    >
+                      {isEditing ? "Done" : "Edit"}
+                    </button>
+                  </div>
                 )}
               </div>
               {!rewrite ? (
                 <div className="text-sm text-[var(--muted)]">
                   {busy === "rewrite" ? "Rewriting…" : "—"}
                 </div>
-              ) : editedRewrite !== null ? (
+              ) : isEditing ? (
                 <textarea
-                  value={editedRewrite}
+                  value={editedRewrite ?? rewrite.rewritten}
                   onChange={(e) => setEditedRewrite(e.target.value)}
                   className="w-full rounded border p-2 text-sm leading-6"
-                  rows={Math.max(8, editedRewrite.split("\n").length + 1)}
+                  rows={Math.max(8, (editedRewrite ?? rewrite.rewritten).split("\n").length + 1)}
                 />
               ) : (
                 <pre className="whitespace-pre-wrap text-sm leading-6 [font-family:inherit]">
-                  {rewrite.rewritten}
+                  {editedRewrite ?? rewrite.rewritten}
                 </pre>
               )}
             </div>

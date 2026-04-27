@@ -7,7 +7,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
           <Logo />
           <span>
-            ch<span className="text-[var(--critical)]">AI</span>n
+            ch<span className="text-[var(--brand-ai)]">AI</span>n
           </span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
