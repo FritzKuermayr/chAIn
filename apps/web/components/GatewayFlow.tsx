@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { api } from "@/lib/api";
 import {
   CATEGORY_LABEL,
@@ -19,9 +19,6 @@ export type GatewayResult = {
   excluded: number[];
   approved: boolean;
 };
-
-const ANALYZE_DEBOUNCE_MS = 900;
-const ANALYZE_MIN_CHARS = 20;
 
 export function GatewayFlow({
   initialText = "",
@@ -45,7 +42,6 @@ export function GatewayFlow({
   const [rewrite, setRewrite] = useState<RewriteResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const lastAnalyzedKey = useRef<string>("");
   const inflight = useRef(0);
 
   function toggle(i: number) {
@@ -69,25 +65,27 @@ export function GatewayFlow({
     }
   }
 
-  async function runAnalyze(currentText: string, currentModel: ModelChoice, currentMode: ReplacementMode) {
+  async function runAnalyze() {
+    if (!text.trim()) return;
     const myToken = ++inflight.current;
     setError(null);
+    setRewrite(null);
+    setEditedRewrite(null);
+    setIsEditing(false);
     setBusy("classify");
     try {
-      const c = await api.classify(currentText, currentModel);
+      const c = await api.classify(text, model);
       if (myToken !== inflight.current) return;
       setClassify(c);
       setExcluded(new Set());
-      setEditedRewrite(null);
-      setIsEditing(false);
       setBusy("rewrite");
       const r = await api.rewrite({
-        text: currentText,
+        text,
         spans: c.spans,
         excluded: [],
-        mode: currentMode,
+        mode,
         recipient: "Other",
-        model: currentModel,
+        model,
       });
       if (myToken !== inflight.current) return;
       setRewrite(r);
@@ -98,24 +96,6 @@ export function GatewayFlow({
       if (myToken === inflight.current) setBusy("idle");
     }
   }
-
-  // Auto-analyze: debounced re-run whenever text, model, or mode changes.
-  useEffect(() => {
-    const trimmed = text.trim();
-    if (trimmed.length < ANALYZE_MIN_CHARS) {
-      setClassify(null);
-      setRewrite(null);
-      return;
-    }
-    const key = `${model}::${mode}::${trimmed}`;
-    if (key === lastAnalyzedKey.current) return;
-    const handle = setTimeout(() => {
-      lastAnalyzedKey.current = key;
-      runAnalyze(text, model, mode);
-    }, ANALYZE_DEBOUNCE_MS);
-    return () => clearTimeout(handle);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, model, mode]);
 
   async function rerunRewrite() {
     if (!classify) return;
@@ -192,16 +172,6 @@ export function GatewayFlow({
               </button>
             </div>
           </Field>
-          <div className="ml-auto flex items-center gap-2 text-[11px] text-[var(--muted)]">
-            <BusyDot state={busy} />
-            <span>
-              {busy === "classify"
-                ? "Classifying…"
-                : busy === "rewrite"
-                  ? "Rewriting…"
-                  : "Auto-analyze on change"}
-            </span>
-          </div>
         </div>
 
         <textarea
@@ -236,6 +206,18 @@ export function GatewayFlow({
               Clear
             </button>
           )}
+          <div className="flex-1" />
+          <button
+            onClick={runAnalyze}
+            disabled={!text.trim() || busy !== "idle"}
+            className="rounded bg-[var(--accent)] px-4 py-1.5 text-sm text-white disabled:opacity-50"
+          >
+            {busy === "idle"
+              ? "Analyze"
+              : busy === "classify"
+                ? "Classifying…"
+                : "Rewriting…"}
+          </button>
         </div>
       </section>
 
@@ -412,14 +394,6 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       {children}
     </label>
   );
-}
-
-function BusyDot({ state }: { state: "idle" | "classify" | "rewrite" }) {
-  const cls =
-    state === "idle"
-      ? "bg-[var(--muted)]/40"
-      : "animate-pulse bg-[var(--brand-ai)]";
-  return <span className={`inline-block h-2 w-2 rounded-full ${cls}`} />;
 }
 
 function SeverityPill({ severity }: { severity: Severity }) {
