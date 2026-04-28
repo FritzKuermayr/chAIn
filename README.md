@@ -3,6 +3,12 @@
 Privacy-preserving communication and knowledge-sharing for sensitive industries
 — accounting, law, banking, public sector, logistics, health, tech.
 
+## Pitch (39 sec)
+
+https://github.com/FritzKuermayr/chAIn/raw/main/assets/chAIn-pitch.mp4
+
+Slides also available as [PDF](chAIn-pitch.pdf) and [PowerPoint](chAIn-pitch.pptx).
+
 Two surfaces of the same product:
 
 1. **Privacy Gateway** — paste, upload or draft a message. chAIn classifies
